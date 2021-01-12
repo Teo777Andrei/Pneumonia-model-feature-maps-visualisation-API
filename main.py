@@ -12,7 +12,7 @@ class FeatureMapsList(BaseException):
 class Layers_preprocessing():
     
 
-    def __init__(self ,model , layers_output_indices= None):
+    def __init__(self ,model , layers_output_indices= []):
         #in constructor is passed the loaded model and the inidices of output layers from model.layers
         self.model_setter(model)
         self.layers_setter(layers_output_indices)
@@ -25,9 +25,7 @@ class Layers_preprocessing():
     def layers_setter(self ,layers_output_indices):
         #creating  the outputs layers to be inserted in visualiser Model from 
         #the  output layers indices  iterable passed in constructor
-        if layers_output_indices == None:
-            layers_output_indices = []
-        self.layers_indices = list(layers_output_indices)
+        self.layers_indices = layers_output_indices
         self.layers_indices.sort()
         self.outputs = []
         if len(self.layers_indices) >0 :
@@ -58,7 +56,7 @@ class Layers_preprocessing():
         
             
 class Visualiser(Layers_preprocessing):
-    def __init__(self ,image_path,  model , layers_output_indices ):
+    def __init__(self ,image_path,  model , layers_output_indices = []):
         super().__init__(model , layers_output_indices)
         self.image_path  = image_path
     
