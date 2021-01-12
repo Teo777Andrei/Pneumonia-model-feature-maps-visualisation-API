@@ -42,7 +42,8 @@ class Layers_preprocessing():
     @__output_layers.setter
     def add_output_layers(self ,layers_seq):
         #add output layers from model.layers to add to visualiser Model 
-        self.layers_indices = list(set(self.layers_indices + layers_seq))
+        self.layers_indices = (self.layers_indices + layers_seq)
+        self.layers_indices.sort()
         self.outputs +=[self.model.layers[layer_index].output for layer_index in self.layers_indices]
         
     @__output_layers.setter
