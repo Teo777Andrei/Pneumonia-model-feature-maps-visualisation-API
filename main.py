@@ -14,6 +14,7 @@ class Layers_preprocessing():
 
     def __init__(self ,model , layers_output_indices= []):
         #in constructor is passed the loaded model and the inidices of output layers from model.layers
+        #layers_output_indices must be a list
         self.model_setter(model)
         self.layers_setter(layers_output_indices)
     
@@ -40,6 +41,7 @@ class Layers_preprocessing():
     @__output_layers.setter
     def add_output_layers(self ,layers_seq):
         #add output layers from model.layers to add to visualiser Model 
+        #layers_seq must be a list iterable
         self.layers_indices = (self.layers_indices + layers_seq)
         self.layers_indices.sort()
         self.outputs +=[self.model.layers[layer_index].output for layer_index in self.layers_indices]
@@ -47,6 +49,7 @@ class Layers_preprocessing():
     @__output_layers.setter
     def remove_output_layers(self ,layers_seq):
         #remove output layers from visualiser Model
+        #layers_seq must be a list iterable
         self.layers_indices=  list(filter(lambda x: x not in layers_seq ,self.layers_indices ) )
         self.outputs=[self.model.layers[layer_index].output for layer_index in self.layers_indices]
         
@@ -57,6 +60,7 @@ class Layers_preprocessing():
             
 class Visualiser(Layers_preprocessing):
     def __init__(self ,image_path,  model , layers_output_indices = []):
+        #layers_output_indices must be a list
         super().__init__(model , layers_output_indices)
         self.image_path  = image_path
     
