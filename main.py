@@ -58,34 +58,34 @@ class Layers_preprocessing():
 class Visualiser(Layers_preprocessing):
     def __init__(self ,image_path,  model , layers_output_indices ):
         super().__init__(model , layers_output_indices)
-        
+        self.image_path  = image_path
     
-    def _visualise_preprocessing(self ,image_path , layer_index):
+    def _visualise_preprocessing(self  , layer_index):
         # preprocessing image's feature map based of layer_index th   output layer
         # if the output layer index exceeds the length of self.outputs (list of all output layers) ,
         # an error will be thrown
         # the feature map is transformed into an array in order to be plotted
         if layer_index > len(self.outputs):
             raise FeatureMapsList("layer index out of output layers list range")
-        self._create_model(image_path)
+        self._create_model()
         self.__feature_map =  np.array(self.prediction[layer_index])
         self.__feature_map= self.__feature_map.reshape(self.__feature_map.shape[1] ,self.__feature_map.shape[2] ,
                                   self.__feature_map.shape[3])
     
-    def _create_model(self , image_path):
+    def _create_model(self ):
         #handle image -> trnasform into array (1 channel / grayscale ) -> create visualiser Model
         #-> predict output layers for the handled image to plot the feature maps
-        image = img_to_array(load_img(image_path , color_mode= 'grayscale', target_size =(64  ,64) ))
+        image = img_to_array(load_img(self.image_path , color_mode= 'grayscale', target_size =(64  ,64) ))
         self.__Model = Model( inputs =  self.model.inputs ,outputs =  self.outputs)
         self.prediction =  self.__Model.predict(image.reshape(1 ,64  ,64 ,1))
     
     
-    def plot(self ,image_path  ,layer_index):
+    def plot(self ,layer_index):
         #plot algorithm for feature maps
         subplot_images_position = {64 : (8 , 8) ,
                                    32 : (4 , 8) ,
                                    16 : (4 , 4)}
-        self._visualise_preprocessing(image_path ,layer_index)
+        self._visualise_preprocessing(layer_index)
         for conv_layer_index in range(1 , self.__feature_map.shape[2]+1):
             plt.subplot(subplot_images_position[self.__feature_map.shape[2]][0] ,
                         subplot_images_position[self.__feature_map.shape[2]][1] ,
