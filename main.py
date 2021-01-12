@@ -66,7 +66,7 @@ class Visualiser(Layers_preprocessing):
         # if the output layer index exceeds the length of self.outputs (list of all output layers) ,
         # an error will be thrown
         # the feature map is transformed into an array in order to be plotted
-        if layer_index > len(self.outputs):
+        if layer_index > len(self.outputs) -1 :
             raise FeatureMapsList("layer index out of output layers list range")
         self._create_model()
         self.__feature_map =  np.array(self.prediction[layer_index])
