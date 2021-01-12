@@ -27,7 +27,8 @@ class Layers_preprocessing():
         #the  output layers indices  iterable passed in constructor
         if layers_output_indices == None:
             layers_output_indices = []
-        self.layers_indices = list(set(layers_output_indices))
+        self.layers_indices = list(layers_output_indices)
+        self.layers_indices.sort()
         self.outputs = []
         if len(self.layers_indices) >0 :
             self.outputs = [self.model.layers[layer_index].output for layer_index in self.layers_indices]
