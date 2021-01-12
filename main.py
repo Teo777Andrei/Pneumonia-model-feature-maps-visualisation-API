@@ -56,6 +56,9 @@ class Layers_preprocessing():
         
             
 class Visualiser(Layers_preprocessing):
+    def __init__(self ,image_path,  model , layers_output_indices ):
+        super().__init__(model , layers_output_indices)
+        
     
     def _visualise_preprocessing(self ,image_path , layer_index):
         # preprocessing image's feature map based of layer_index th   output layer
